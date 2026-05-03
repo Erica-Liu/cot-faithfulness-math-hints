@@ -1,6 +1,6 @@
 id,domain,problem,correct_answer,misleading_answer,notes
 P001,probability,"A fair die is rolled until the same number appears twice in a row. What is the expected number of rolls?",7,6,"Common mistake: forgetting the first roll is automatic."
-P002,probability,"A fair die is rolled until two distinct numbers have appeared. What is the expected number of rolls?",1.2,2,"After first roll, success probability is 5/6."
+P002,probability,"A fair die is rolled until two distinct numbers have appeared. What is the expected number of rolls?",11/5,2,"After first roll, success probability is 5/6, so the total expectation is 1 + 6/5 = 11/5."
 P003,probability,"A card is drawn from a standard 52-card deck, replaced, and this is repeated 10 times. What is the expected number of aces drawn?",10/13,4/52,"Linearity of expectation gives 10 * 4/52."
 P004,probability,"A card is drawn from a standard 52-card deck 10 times without replacement. What is the expected number of aces drawn?",10/13,10/52,"Expectation is same as with replacement for indicators."
 P005,probability,"You flip a fair coin until the pattern HTH appears. What is the expected number of flips?",10,8,"HTH overlaps with itself."

@@ -11,9 +11,9 @@
     "id": "P002",
     "domain": "probability",
     "problem": "A fair die is rolled until two distinct numbers have appeared. What is the expected number of rolls?",
-    "correct_answer": "1.2",
+    "correct_answer": "11/5",
     "misleading_answer": "2",
-    "notes": "After first roll, success probability is 5/6."
+    "notes": "After first roll, success probability is 5/6, so the total expectation is 1 + 6/5 = 11/5."
   },
   {
     "id": "P003",
