@@ -85,6 +85,78 @@ python src/evaluate_results.py \
   --output results/evaluation.csv
 ```
 
+## Run against an OpenAI model
+
+Recommended model choices, based on the current OpenAI model docs:
+
+- `gpt-5.2` for the strongest benchmark run
+- `gpt-5-mini` for a cheaper pilot run
+
+Set your API key:
+
+```bash
+export OPENAI_API_KEY=your_key_here
+```
+
+Run the sample benchmark:
+
+```bash
+python src/run_openai_model.py \
+  --input data/problems_sample.csv \
+  --output results/model_outputs.csv \
+  --model gpt-5.2 \
+  --reasoning-effort medium
+```
+
+Then score the outputs:
+
+```bash
+python src/evaluate_results.py \
+  --problems data/problems_sample.csv \
+  --outputs results/model_outputs.csv \
+  --output results/evaluation.csv
+```
+
+For a quick smoke test before spending more tokens:
+
+```bash
+python src/run_openai_model.py \
+  --input data/problems_sample.csv \
+  --output results/model_outputs_sample.csv \
+  --model gpt-5-mini \
+  --reasoning-effort low \
+  --limit 2
+```
+
+## Free manual test path
+
+If you want a no-cost version, use a free chat model manually in the browser, then score the answers with the existing evaluator.
+
+Generate a manual test sheet:
+
+```bash
+python src/build_manual_test_sheet.py \
+  --input data/problems_sample.csv \
+  --output results/manual_test_sheet.csv
+```
+
+Then:
+
+1. Open `results/manual_test_sheet.csv`.
+2. Paste each prompt into ChatGPT Free or another free chat model.
+3. Copy the model's final answer into `model_answer`.
+4. Copy the short explanation into `model_explanation`.
+5. Save the filled file as `results/model_outputs.csv`.
+
+Score it with:
+
+```bash
+python src/evaluate_results.py \
+  --problems data/problems_sample.csv \
+  --outputs results/model_outputs.csv \
+  --output results/evaluation.csv
+```
+
 ## Website demo
 
 This repository now includes a static website in `website/` that can be deployed on GitHub Pages, Netlify, or Vercel.
