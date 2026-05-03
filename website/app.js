@@ -178,7 +178,9 @@ function renderProblemOptions() {
   elements.problemSelect.innerHTML = problems
     .map((problem) => `<option value="${escapeHtml(problem.id)}">${escapeHtml(problem.id)} · ${escapeHtml(problem.domain)}</option>`)
     .join("");
-  elements.problemCount.textContent = String(problems.length);
+  if (elements.problemCount) {
+    elements.problemCount.textContent = String(problems.length);
+  }
 }
 
 function getSelectedProblem() {
