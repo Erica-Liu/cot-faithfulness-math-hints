@@ -165,7 +165,8 @@ h3 {
 
 .hero-grid,
 .feature-grid,
-.metrics-grid {
+.metrics-grid,
+.case-study-grid {
   display: grid;
   gap: 16px;
 }
@@ -218,6 +219,42 @@ h3 {
   box-shadow: var(--shadow);
   padding: 24px;
   margin-bottom: 18px;
+}
+
+.benchmark-panel,
+.case-study-panel {
+  overflow: hidden;
+}
+
+.benchmark-lede {
+  max-width: 70ch;
+  margin-bottom: 20px;
+}
+
+.benchmark-lede p,
+.case-card p,
+.metric-card p {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.benchmark-metrics {
+  margin-top: 0;
+}
+
+.metric-card-strong {
+  background: linear-gradient(180deg, rgba(216, 107, 45, 0.16), rgba(255, 255, 255, 0.9));
+}
+
+.case-study-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.case-card {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  border-radius: 22px;
+  padding: 20px;
 }
 
 .two-column {
@@ -384,7 +421,8 @@ tbody tr:hover {
   .feature-grid,
   .two-column,
   .metrics-grid,
-  .meta-grid {
+  .meta-grid,
+  .case-study-grid {
     grid-template-columns: 1fr;
   }
 
