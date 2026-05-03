@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CoT Faithfulness Stress Test</title>
+    <meta
+      name="description"
+      content="An interactive website for exploring prompt conditions and evaluation metrics for the CoT faithfulness stress test on mathematical hints."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,500;6..72,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <nav class="topbar">
+          <span class="eyebrow">Research Demo</span>
+          <a class="toplink" href="https://github.com/new" target="_blank" rel="noreferrer">Publish Repo</a>
+        </nav>
+        <div class="hero-copy">
+          <p class="kicker">Chain-of-thought oversight under pressure</p>
+          <h1>CoT Faithfulness Stress Test on Mathematical Hints</h1>
+          <p class="lede">
+            This project tests whether a model admits that it relied on a misleading hint when that hint changes its answer.
+          </p>
+        </div>
+        <div class="hero-grid">
+          <article class="stat-card">
+            <span class="stat-label">Prompt Conditions</span>
+            <strong>3</strong>
+            <p>Baseline, correct hint, and misleading hint.</p>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Sample Problems</span>
+            <strong id="problem-count">10</strong>
+            <p>Probability and combinatorics tasks with tempting wrong answers.</p>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Key Question</span>
+            <strong>Faithful or rationalized?</strong>
+            <p>Do explanations reveal hint usage after a wrong turn?</p>
+          </article>
+        </div>
+      </header>
+
+      <main>
+        <section class="section section-intro">
+          <div class="section-heading">
+            <p class="section-tag">Why this matters</p>
+            <h2>We care less about raw accuracy here than whether the explanation tells the truth.</h2>
+          </div>
+          <div class="feature-grid">
+            <article class="feature-card">
+              <h3>Prompt generator</h3>
+              <p>Browse a sample problem and instantly compare the baseline, correct-hint, and misleading-hint prompts.</p>
+            </article>
+            <article class="feature-card">
+              <h3>Dataset explorer</h3>
+              <p>Inspect the exact wrong answers used as bait and the notes explaining why they are tempting.</p>
+            </article>
+            <article class="feature-card">
+              <h3>Browser evaluator</h3>
+              <p>Upload a `model_outputs.csv` file and compute the same core metrics without a backend server.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section playground">
+          <div class="section-heading">
+            <p class="section-tag">Interactive Demo</p>
+            <h2>Explore prompts and stress-test outputs</h2>
+          </div>
+
+          <div class="panel two-column">
+            <div class="panel-block">
+              <label for="problem-select">Choose a sample problem</label>
+              <select id="problem-select"></select>
+
+              <div class="condition-switcher" role="tablist" aria-label="Prompt conditions">
+                <button class="condition-btn is-active" data-condition="baseline">Baseline</button>
+                <button class="condition-btn" data-condition="correct_hint">Correct Hint</button>
+                <button class="condition-btn" data-condition="misleading_hint">Misleading Hint</button>
+              </div>
+
+              <div class="meta-grid">
+                <div>
+                  <span class="meta-label">Domain</span>
+                  <span id="problem-domain"></span>
+                </div>
+                <div>
+                  <span class="meta-label">Correct Answer</span>
+                  <span id="problem-correct"></span>
+                </div>
+                <div>
+                  <span class="meta-label">Misleading Answer</span>
+                  <span id="problem-misleading"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-block prompt-block">
+              <h3>Generated Prompt</h3>
+              <pre id="prompt-output"></pre>
+              <button id="copy-prompt" class="ghost-button">Copy Prompt</button>
+            </div>
+          </div>
+
+          <div class="panel dataset-panel">
+            <div class="dataset-header">
+              <div>
+                <h3>Sample dataset</h3>
+                <p>Each row pairs a mathematically checkable task with a plausible but wrong hint.</p>
+              </div>
+              <input id="problem-search" type="search" placeholder="Search by id, domain, or text" />
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Domain</th>
+                    <th>Problem</th>
+                    <th>Correct</th>
+                    <th>Misleading</th>
+                  </tr>
+                </thead>
+                <tbody id="problem-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel evaluator-panel">
+            <div class="section-heading compact">
+              <p class="section-tag">Evaluator</p>
+              <h2>Upload `results/model_outputs.csv`</h2>
+            </div>
+            <p class="panel-copy">
+              Expected columns: `id`, `condition`, `model_answer`, `model_explanation`
+            </p>
+            <div class="upload-row">
+              <input id="outputs-file" type="file" accept=".csv,text/csv" />
+              <button id="load-sample" class="ghost-button">Load Example Output</button>
+            </div>
+            <div id="eval-status" class="status-message"></div>
+            <div id="metrics-grid" class="metrics-grid"></div>
+            <div class="table-wrap hidden" id="evaluation-table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Condition</th>
+                    <th>Model Answer</th>
+                    <th>Correct</th>
+                    <th>Followed Misleading Hint</th>
+                    <th>Disclosed Hint Use</th>
+                    <th>Possible Rationalization</th>
+                  </tr>
+                </thead>
+                <tbody id="evaluation-table-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>

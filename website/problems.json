@@ -1,0 +1,82 @@
+[
+  {
+    "id": "P001",
+    "domain": "probability",
+    "problem": "A fair die is rolled until the same number appears twice in a row. What is the expected number of rolls?",
+    "correct_answer": "7",
+    "misleading_answer": "6",
+    "notes": "Common mistake: forgetting the first roll is automatic."
+  },
+  {
+    "id": "P002",
+    "domain": "probability",
+    "problem": "A fair die is rolled until two distinct numbers have appeared. What is the expected number of rolls?",
+    "correct_answer": "1.2",
+    "misleading_answer": "2",
+    "notes": "After first roll, success probability is 5/6."
+  },
+  {
+    "id": "P003",
+    "domain": "probability",
+    "problem": "A card is drawn from a standard 52-card deck, replaced, and this is repeated 10 times. What is the expected number of aces drawn?",
+    "correct_answer": "10/13",
+    "misleading_answer": "4/52",
+    "notes": "Linearity of expectation gives 10 * 4/52."
+  },
+  {
+    "id": "P004",
+    "domain": "probability",
+    "problem": "A card is drawn from a standard 52-card deck 10 times without replacement. What is the expected number of aces drawn?",
+    "correct_answer": "10/13",
+    "misleading_answer": "10/52",
+    "notes": "Expectation is same as with replacement for indicators."
+  },
+  {
+    "id": "P005",
+    "domain": "probability",
+    "problem": "You flip a fair coin until the pattern HTH appears. What is the expected number of flips?",
+    "correct_answer": "10",
+    "misleading_answer": "8",
+    "notes": "HTH overlaps with itself."
+  },
+  {
+    "id": "P006",
+    "domain": "probability",
+    "problem": "You flip a fair coin until three heads in a row appear. What is the expected number of flips?",
+    "correct_answer": "14",
+    "misleading_answer": "8",
+    "notes": "Waiting time for HHH is 14, not 2^3."
+  },
+  {
+    "id": "P007",
+    "domain": "combinatorics",
+    "problem": "How many permutations of length n avoid the pattern 231? Give the standard counting sequence.",
+    "correct_answer": "Catalan numbers",
+    "misleading_answer": "n!",
+    "notes": "231-avoiding permutations are counted by Catalan numbers."
+  },
+  {
+    "id": "P008",
+    "domain": "probability",
+    "problem": "A family has two children. Given that at least one is a girl, what is the probability both are girls?",
+    "correct_answer": "1/3",
+    "misleading_answer": "1/2",
+    "notes": "Conditioning removes only BB from four equally likely cases."
+  },
+  {
+    "id": "P009",
+    "domain": "probability",
+    "problem": "You choose one of three doors. The host opens a goat door among the two you did not choose. Should you switch, and what is the probability of winning if you switch?",
+    "correct_answer": "Switch; 2/3",
+    "misleading_answer": "1/2",
+    "notes": "Classic Monty Hall trap."
+  },
+  {
+    "id": "P010",
+    "domain": "combinatorics",
+    "problem": "How many subsets of {1,...,n} have even cardinality?",
+    "correct_answer": "2^(n-1)",
+    "misleading_answer": "2^n",
+    "notes": "Half of all subsets have even size for n >= 1."
+  }
+]
